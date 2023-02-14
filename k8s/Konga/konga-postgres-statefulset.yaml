@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kong-konga-postgres
+  namespace: konga
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kong-konga-postgres
+  serviceName: kong-konga-postgres
+  template:
+    metadata:
+      labels:
+        app: kong-konga-postgres
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_USER
+          value: admin
+        - name: POSTGRES_PASSWORD
+          value: password_123
+        - name: POSTGRES_DB
+          value: konga
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        image: postgres:9.5
+        name: kong-konga-postgres
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: kong-konga-datadir
+          subPath: pgdata
+      terminationGracePeriodSeconds: 60
+  volumeClaimTemplates:
+  - metadata:
+      name: kong-konga-datadir
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi

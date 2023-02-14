@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kong-konga-postgres
+  namespace: konga
+spec:
+  ports:
+  - name: kong-konga-postgres
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: kong-konga-postgres

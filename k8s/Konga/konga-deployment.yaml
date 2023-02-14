@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: kong-konga
+  name: kong-konga
+  namespace: konga
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: kong-konga
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kong-konga
+    spec:
+      containers:
+      - image: pantsel/konga
+        imagePullPolicy: Always
+        name: kong-konga
+        resources: {}
+        ports:
+        - containerPort: 1337
+        env:
+          - name: TOKEN_SECRET
+            value: 2hTCEbwPhgM4hq4h
+          - name: DB_ADAPTER
+            value: postgres
+          - name: DB_HOST
+            value: kong-konga-postgres
+          - name: DB_USER
+            value: admin
+          - name: DB_PASSWORD
+            value: password_123
+          - name: DB_DATABASE
+            value: konga
+      nodeSelector:
+        agentpool: default
+status: {}

@@ -1,0 +1,15 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+    - selector: AssetManagement.Asset.ListAssets
+      get : /{tenantCode}/asset
+    - selector: AssetManagement.Asset.CreateAsset
+      post : /{tenantCode}/asset
+      body : "*"
+    - selector: AssetManagement.Provider.CreateProvider
+      post : /provider
+      body: "*"
+    - selector: AssetManagement.Provider.ListProviders
+      get : /provider

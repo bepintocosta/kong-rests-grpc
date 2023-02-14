@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+option csharp_namespace = "netponto.AssetManagement.Protos";
+
+option go_package="./;gen";
+
+package AssetManagement;
+
+service Provider {
+	rpc CreateProvider (CreateProviderRequest) returns (CreateProviderResponse);
+	rpc UpdateProvider (UpdateProviderRequest) returns (UpdateProviderResponse);
+	rpc ProviderDetail (ProviderDetailRequest) returns (ProviderDetailResponse);
+	rpc ListProviders (ListProvidersRequest) returns (ListProvidersResponse);
+	rpc ListProvidersbyTenantAndCapability (ListProvidersbyTenantAndCapabilityRequest) returns (ListProvidersbyTenantAndCapabilityResponse);
+}
+
+// Create Provider
+message CreateProviderRequest {
+	string name = 1;
+	string queueName = 2;
+}
+
+message CreateProviderResponse {
+	string url = 1;
+}
+
+// Update Provider
+message UpdateProviderRequest {
+	int64 id = 1;
+	repeated string tenants = 2;
+	string name = 3;
+	string queueName = 4;
+}
+
+message UpdateProviderResponse { }
+
+// Provider Detail
+message ProviderDetailRequest {
+	int64 id = 1;
+}
+
+message ProviderDetailResponse {
+	 int64 id = 1;
+	 string name = 2;
+	 string queueName = 3;
+	 repeated string tenants = 4;
+	 repeated ProviderDetailCapabilityInfo  capabilities = 5;
+	 string created = 6;
+	 string createdBy = 7;
+	 string lastModified= 8;
+	 string lastModifiedBy = 9;
+}
+
+// List Providers
+message ListProvidersRequest {	
+	string tenantCode = 1;
+	int32 index = 2;
+    int32 size = 3;
+	string sort = 4;
+	string order = 5;
+}
+
+message ListProvidersResponse {
+	repeated ProviderResponse data = 1;
+	int32 totalCount = 2;
+}
+
+message ProviderResponse {
+	int64 id = 1;
+	string name = 2;
+	string queueName = 3;
+	repeated string tenants = 4;
+	repeated ProviderDetailCapabilityInfo  capabilities = 5;
+}
+
+message ProviderDetailCapabilityInfo {
+	int64 capabilityId  = 1;
+	string capabilityName  = 2;
+}
+
+// List Providers by Tenant and Capability
+message ListProvidersbyTenantAndCapabilityRequest {
+	string tenantCode = 1;
+	string capabilityName = 2;
+}
+
+message ListProvidersbyTenantAndCapabilityResponse {
+	repeated ProviderListResponse data = 1;
+}
+
+message ProviderListResponse {
+	string provider = 1;
+	string queue = 2;
+}

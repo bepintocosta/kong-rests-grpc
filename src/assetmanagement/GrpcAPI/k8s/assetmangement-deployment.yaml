@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: netponto
+  creationTimestamp: null
+  labels:
+    app: assent-management-grpc-api
+  name: assent-management-grpc-api
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: asset-management-grpc-api
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: asset-management-grpc-api
+    spec:
+      containers:
+      - image: "bepintocosta/asset-management-grpc-api"
+        imagePullPolicy: Always
+        name: asset-management-grpc-api
+        resources: {}
+        ports:
+        - containerPort: 80
+          name: http2
+      - image: "bepintocosta/asset-management-grpc-proxy"
+        imagePullPolicy: Always
+        name: asset-management-grpc-proxy
+        resources: {}
+        ports:
+        - containerPort: 8090
+        env:
+          - name:  GRPC_HOST
+            value: "localhost:80"
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: netponto
+  name: asset-management-grpc-api-service
+  labels:
+    run: asset-management-grpc-api-service
+    HealthChecks: "true"
+spec:
+  ports:
+  - port: 8090
+    name: proxy-port
+    protocol: TCP
+    targetPort: 8090
+  - port: 5000
+    name: grpc-port
+    protocol: TCP
+    targetPort: 80    
+  selector:
+    app: asset-management-grpc-api
+

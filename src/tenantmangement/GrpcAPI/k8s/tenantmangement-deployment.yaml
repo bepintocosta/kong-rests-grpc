@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: netponto
+  creationTimestamp: null
+  labels:
+    app: tenant-management-grpc-api
+  name: tenant-management-grpc-api
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: tenant-management-grpc-api
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: tenant-management-grpc-api
+    spec:
+      containers:
+      - image: "bepintocosta/tenant-management-grpc-api"
+        imagePullPolicy: Always
+        name: tenant-management-grpc-api
+        resources: {}
+        ports:
+        - containerPort: 80
+          name: http2
+      - image: "bepintocosta/tenant-management-grpc-proxy"
+        imagePullPolicy: Always
+        name: tenant-management-grpc-proxy
+        resources: {}
+        ports:
+        - containerPort: 8090
+        env:
+          - name:  GRPC_HOST
+            value: "localhost:80"
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: netponto
+  name: tenant-management-grpc-api-service
+  labels:
+    run: tenant-management-grpc-api-service
+    HealthChecks: "true"
+spec:
+  ports:
+  - port: 8090
+    name: proxy-port
+    protocol: TCP
+    targetPort: 8090
+  - port: 5000
+    name: grpc-port
+    protocol: TCP
+    targetPort: 80    
+  selector:
+    app: tenant-management-grpc-api
+

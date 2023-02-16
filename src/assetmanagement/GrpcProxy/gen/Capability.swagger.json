@@ -17,7 +17,7 @@
   ],
   "paths": {},
   "definitions": {
-    "AssetManagementCapabilityByTenantResponse": {
+    "AssetManagementCapabilitieResponse": {
       "type": "object",
       "properties": {
         "id": {
@@ -26,78 +26,6 @@
         },
         "name": {
           "type": "string"
-        }
-      }
-    },
-    "AssetManagementCapabilityDetailProviderInfo": {
-      "type": "object",
-      "properties": {
-        "providerId": {
-          "type": "string",
-          "format": "int64"
-        },
-        "providerName": {
-          "type": "string"
-        }
-      }
-    },
-    "AssetManagementCapabilityDetailResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tenants": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "providers": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AssetManagementCapabilityDetailProviderInfo"
-          }
-        },
-        "created": {
-          "type": "string"
-        },
-        "createdBy": {
-          "type": "string"
-        },
-        "lastModified": {
-          "type": "string"
-        },
-        "lastModifiedBy": {
-          "type": "string"
-        }
-      }
-    },
-    "AssetManagementCapabilityResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tenants": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "providers": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AssetManagementCapabilityDetailProviderInfo"
-          }
         }
       }
     },
@@ -109,24 +37,13 @@
         }
       }
     },
-    "AssetManagementListCapabilitiesByTenantResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AssetManagementCapabilityByTenantResponse"
-          }
-        }
-      }
-    },
     "AssetManagementListCapabilitiesResponse": {
       "type": "object",
       "properties": {
         "data": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/AssetManagementCapabilityResponse"
+            "$ref": "#/definitions/AssetManagementCapabilitieResponse"
           }
         },
         "totalCount": {
@@ -134,9 +51,6 @@
           "format": "int32"
         }
       }
-    },
-    "AssetManagementUpdateCapabilityResponse": {
-      "type": "object"
     },
     "protobufAny": {
       "type": "object",

@@ -43,6 +43,23 @@ func request_Provider_CreateProvider_0(ctx context.Context, marshaler runtime.Ma
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["tenantCode"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "tenantCode")
+	}
+
+	protoReq.TenantCode, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tenantCode", err)
+	}
+
 	msg, err := client.CreateProvider(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -60,18 +77,52 @@ func local_request_Provider_CreateProvider_0(ctx context.Context, marshaler runt
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["tenantCode"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "tenantCode")
+	}
+
+	protoReq.TenantCode, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tenantCode", err)
+	}
+
 	msg, err := server.CreateProvider(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
 var (
-	filter_Provider_ListProviders_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_Provider_ListProviders_0 = &utilities.DoubleArray{Encoding: map[string]int{"tenantCode": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
 )
 
 func request_Provider_ListProviders_0(ctx context.Context, marshaler runtime.Marshaler, client ProviderClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListProvidersRequest
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["tenantCode"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "tenantCode")
+	}
+
+	protoReq.TenantCode, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tenantCode", err)
+	}
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -88,6 +139,23 @@ func request_Provider_ListProviders_0(ctx context.Context, marshaler runtime.Mar
 func local_request_Provider_ListProviders_0(ctx context.Context, marshaler runtime.Marshaler, server ProviderServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListProvidersRequest
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["tenantCode"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "tenantCode")
+	}
+
+	protoReq.TenantCode, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tenantCode", err)
+	}
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -115,7 +183,7 @@ func RegisterProviderHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/AssetManagement.Provider/CreateProvider", runtime.WithHTTPPathPattern("/provider"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/AssetManagement.Provider/CreateProvider", runtime.WithHTTPPathPattern("/{tenantCode}/provider"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -140,7 +208,7 @@ func RegisterProviderHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/AssetManagement.Provider/ListProviders", runtime.WithHTTPPathPattern("/provider"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/AssetManagement.Provider/ListProviders", runtime.WithHTTPPathPattern("/{tenantCode}/provider"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -204,7 +272,7 @@ func RegisterProviderHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/AssetManagement.Provider/CreateProvider", runtime.WithHTTPPathPattern("/provider"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/AssetManagement.Provider/CreateProvider", runtime.WithHTTPPathPattern("/{tenantCode}/provider"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -226,7 +294,7 @@ func RegisterProviderHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/AssetManagement.Provider/ListProviders", runtime.WithHTTPPathPattern("/provider"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/AssetManagement.Provider/ListProviders", runtime.WithHTTPPathPattern("/{tenantCode}/provider"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -246,9 +314,9 @@ func RegisterProviderHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 }
 
 var (
-	pattern_Provider_CreateProvider_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"provider"}, ""))
+	pattern_Provider_CreateProvider_0 = runtime.MustPattern(runtime.NewPattern(1, []int{1, 0, 4, 1, 5, 0, 2, 1}, []string{"tenantCode", "provider"}, ""))
 
-	pattern_Provider_ListProviders_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"provider"}, ""))
+	pattern_Provider_ListProviders_0 = runtime.MustPattern(runtime.NewPattern(1, []int{1, 0, 4, 1, 5, 0, 2, 1}, []string{"tenantCode", "provider"}, ""))
 )
 
 var (

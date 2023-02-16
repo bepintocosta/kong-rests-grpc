@@ -39,6 +39,4 @@ spec:
             value: password_123
           - name: DB_DATABASE
             value: konga
-      nodeSelector:
-        agentpool: default
 status: {}

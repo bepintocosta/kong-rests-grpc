@@ -24,8 +24,6 @@ const _ = grpc.SupportPackageIsVersion7
 type AssetClient interface {
 	ListAssets(ctx context.Context, in *ListAssetsRequest, opts ...grpc.CallOption) (*ListAssetsResponse, error)
 	CreateAsset(ctx context.Context, in *CreateAssetRequest, opts ...grpc.CallOption) (*CreateAssetResponse, error)
-	AssetDetail(ctx context.Context, in *AssetDetailRequest, opts ...grpc.CallOption) (*AssetDetailResponse, error)
-	UpdateAsset(ctx context.Context, in *UpdateAssetRequest, opts ...grpc.CallOption) (*UpdateAssetResponse, error)
 }
 
 type assetClient struct {
@@ -54,32 +52,12 @@ func (c *assetClient) CreateAsset(ctx context.Context, in *CreateAssetRequest, o
 	return out, nil
 }
 
-func (c *assetClient) AssetDetail(ctx context.Context, in *AssetDetailRequest, opts ...grpc.CallOption) (*AssetDetailResponse, error) {
-	out := new(AssetDetailResponse)
-	err := c.cc.Invoke(ctx, "/AssetManagement.Asset/AssetDetail", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *assetClient) UpdateAsset(ctx context.Context, in *UpdateAssetRequest, opts ...grpc.CallOption) (*UpdateAssetResponse, error) {
-	out := new(UpdateAssetResponse)
-	err := c.cc.Invoke(ctx, "/AssetManagement.Asset/UpdateAsset", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // AssetServer is the server API for Asset service.
 // All implementations must embed UnimplementedAssetServer
 // for forward compatibility
 type AssetServer interface {
 	ListAssets(context.Context, *ListAssetsRequest) (*ListAssetsResponse, error)
 	CreateAsset(context.Context, *CreateAssetRequest) (*CreateAssetResponse, error)
-	AssetDetail(context.Context, *AssetDetailRequest) (*AssetDetailResponse, error)
-	UpdateAsset(context.Context, *UpdateAssetRequest) (*UpdateAssetResponse, error)
 	mustEmbedUnimplementedAssetServer()
 }
 
@@ -92,12 +70,6 @@ func (UnimplementedAssetServer) ListAssets(context.Context, *ListAssetsRequest) 
 }
 func (UnimplementedAssetServer) CreateAsset(context.Context, *CreateAssetRequest) (*CreateAssetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAsset not implemented")
-}
-func (UnimplementedAssetServer) AssetDetail(context.Context, *AssetDetailRequest) (*AssetDetailResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AssetDetail not implemented")
-}
-func (UnimplementedAssetServer) UpdateAsset(context.Context, *UpdateAssetRequest) (*UpdateAssetResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateAsset not implemented")
 }
 func (UnimplementedAssetServer) mustEmbedUnimplementedAssetServer() {}
 
@@ -148,42 +120,6 @@ func _Asset_CreateAsset_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Asset_AssetDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AssetDetailRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AssetServer).AssetDetail(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/AssetManagement.Asset/AssetDetail",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AssetServer).AssetDetail(ctx, req.(*AssetDetailRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Asset_UpdateAsset_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateAssetRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AssetServer).UpdateAsset(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/AssetManagement.Asset/UpdateAsset",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AssetServer).UpdateAsset(ctx, req.(*UpdateAssetRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Asset_ServiceDesc is the grpc.ServiceDesc for Asset service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -198,14 +134,6 @@ var Asset_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAsset",
 			Handler:    _Asset_CreateAsset_Handler,
-		},
-		{
-			MethodName: "AssetDetail",
-			Handler:    _Asset_AssetDetail_Handler,
-		},
-		{
-			MethodName: "UpdateAsset",
-			Handler:    _Asset_UpdateAsset_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -24,12 +24,15 @@ var app = builder.Build();
 app.UseRouting();
 
 // Configure the HTTP request pipeline.
-app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapGrpcService<AssetService>();
-        endpoints.MapGrpcService<ProviderService>();
+app.MapGrpcService<AssetService>();
+app.MapGrpcService<ProviderService>();
+app.MapGrpcService<CapabilityService>();
+// app.UseEndpoints(endpoints =>
+//     {
+//         endpoints.MapGrpcService<AssetService>();
+//         endpoints.MapGrpcService<ProviderService>();
+//         endpoints.MapGrpcService<CapabilityService>();
 
-    });
-app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+//     });
 
 app.Run();

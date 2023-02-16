@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "netponto.TenantManagement.Protos";
+
+option go_package="./;gen";
+
+package TenantManagement;
+
+service Tenant {
+	rpc CreateTenant (CreateTenantRequest) returns (CreateTenantResponse);
+}
+
+
+// Create Asset
+message CreateTenantRequest {
+	string tenantCode = 1;
+	string tenantName = 2;
+}
+
+message CreateTenantResponse {
+	string url = 1;
+}

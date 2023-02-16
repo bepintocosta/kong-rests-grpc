@@ -91,13 +91,19 @@ func main() {
 	err = pb.RegisterAssetHandler(context.Background(), gwmux, conn)
 
 	if err != nil {
-		log.Fatalln("Failed to register gateway:", err)
+		log.Fatalln("Failed to register asset gateway:", err)
 	}
 
 	err = pb.RegisterProviderHandler(context.Background(), gwmux, conn)
 
 	if err != nil {
-		log.Fatalln("Failed to register gateway:", err)
+		log.Fatalln("Failed to register provider gateway:", err)
+	}
+
+	err = pb.RegisterCapabilityHandler(context.Background(), gwmux, conn)
+
+	if err != nil {
+		log.Fatalln("Failed to register capability gateway:", err)
 	}
 
 	gwServer := &http.Server{

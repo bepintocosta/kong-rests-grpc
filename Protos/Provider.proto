@@ -8,48 +8,20 @@ package AssetManagement;
 
 service Provider {
 	rpc CreateProvider (CreateProviderRequest) returns (CreateProviderResponse);
-	rpc UpdateProvider (UpdateProviderRequest) returns (UpdateProviderResponse);
-	rpc ProviderDetail (ProviderDetailRequest) returns (ProviderDetailResponse);
 	rpc ListProviders (ListProvidersRequest) returns (ListProvidersResponse);
-	rpc ListProvidersbyTenantAndCapability (ListProvidersbyTenantAndCapabilityRequest) returns (ListProvidersbyTenantAndCapabilityResponse);
 }
 
 // Create Provider
 message CreateProviderRequest {
-	string name = 1;
-	string queueName = 2;
+	string tenantCode = 1;
+	string name = 2;
+	string queueName = 3;
 }
 
 message CreateProviderResponse {
 	string url = 1;
 }
 
-// Update Provider
-message UpdateProviderRequest {
-	int64 id = 1;
-	repeated string tenants = 2;
-	string name = 3;
-	string queueName = 4;
-}
-
-message UpdateProviderResponse { }
-
-// Provider Detail
-message ProviderDetailRequest {
-	int64 id = 1;
-}
-
-message ProviderDetailResponse {
-	 int64 id = 1;
-	 string name = 2;
-	 string queueName = 3;
-	 repeated string tenants = 4;
-	 repeated ProviderDetailCapabilityInfo  capabilities = 5;
-	 string created = 6;
-	 string createdBy = 7;
-	 string lastModified= 8;
-	 string lastModifiedBy = 9;
-}
 
 // List Providers
 message ListProvidersRequest {	
@@ -68,27 +40,4 @@ message ListProvidersResponse {
 message ProviderResponse {
 	int64 id = 1;
 	string name = 2;
-	string queueName = 3;
-	repeated string tenants = 4;
-	repeated ProviderDetailCapabilityInfo  capabilities = 5;
-}
-
-message ProviderDetailCapabilityInfo {
-	int64 capabilityId  = 1;
-	string capabilityName  = 2;
-}
-
-// List Providers by Tenant and Capability
-message ListProvidersbyTenantAndCapabilityRequest {
-	string tenantCode = 1;
-	string capabilityName = 2;
-}
-
-message ListProvidersbyTenantAndCapabilityResponse {
-	repeated ProviderListResponse data = 1;
-}
-
-message ProviderListResponse {
-	string provider = 1;
-	string queue = 2;
 }

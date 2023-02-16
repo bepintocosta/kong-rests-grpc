@@ -34,6 +34,25 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: kong-admin-api
+  namespace: kong-{{KONG_CONTEXT}}
+spec:
+  ports:
+  - name: kong-admin-api
+    port: 8001
+    protocol: TCP
+    targetPort: 8001
+  - name: kong-admin-api-ssl
+    port: 8444
+    protocol: TCP
+    targetPort: 8444
+  selector:
+    app: ingress-kong
+
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: postgres
   namespace: kong-{{KONG_CONTEXT}}
 spec:

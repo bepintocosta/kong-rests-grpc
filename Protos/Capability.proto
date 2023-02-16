@@ -8,12 +8,13 @@ package AssetManagement;
 
 service Capability {
 	rpc CreateCapability (CreateCapabilityRequest) returns (CreateCapabilityResponse);
-	rpc ListCapabilitiesByTenant (ListCapabilitiesByTenantRequest) returns (ListCapabilitiesByTenantResponse);
+	rpc ListCapabilities (ListCapabilitiesRequest) returns (ListCapabilitiesResponse);
 }
 
 // Create Capability
 message CreateCapabilityRequest {
-	string name = 1;
+	string tenantCode = 1;
+	string name = 2;
 }
 
 message CreateCapabilityResponse {
@@ -21,15 +22,20 @@ message CreateCapabilityResponse {
 }
 
 // List Capabilities By Tenant
-message ListCapabilitiesByTenantRequest {	
+message ListCapabilitiesRequest {	
 	string tenantCode = 1;
+	int32	 index = 2;
+	int32	 size = 3;
+	string sort = 4;
+	string order = 5;
 }
 
-message ListCapabilitiesByTenantResponse {
-  repeated CapabilityByTenantResponse data = 1;
+message ListCapabilitiesResponse {
+  repeated CapabilitieResponse data = 1;
+  int32	totalCount = 2;
 }
 
-message CapabilityByTenantResponse {
+message CapabilitieResponse {
 	int64 id = 1;
 	string name = 2;
 }

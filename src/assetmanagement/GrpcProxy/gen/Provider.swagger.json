@@ -40,79 +40,6 @@
         }
       }
     },
-    "AssetManagementListProvidersbyTenantAndCapabilityResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AssetManagementProviderListResponse"
-          }
-        }
-      }
-    },
-    "AssetManagementProviderDetailCapabilityInfo": {
-      "type": "object",
-      "properties": {
-        "capabilityId": {
-          "type": "string",
-          "format": "int64"
-        },
-        "capabilityName": {
-          "type": "string"
-        }
-      }
-    },
-    "AssetManagementProviderDetailResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        },
-        "queueName": {
-          "type": "string"
-        },
-        "tenants": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "capabilities": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AssetManagementProviderDetailCapabilityInfo"
-          }
-        },
-        "created": {
-          "type": "string"
-        },
-        "createdBy": {
-          "type": "string"
-        },
-        "lastModified": {
-          "type": "string"
-        },
-        "lastModifiedBy": {
-          "type": "string"
-        }
-      }
-    },
-    "AssetManagementProviderListResponse": {
-      "type": "object",
-      "properties": {
-        "provider": {
-          "type": "string"
-        },
-        "queue": {
-          "type": "string"
-        }
-      }
-    },
     "AssetManagementProviderResponse": {
       "type": "object",
       "properties": {
@@ -122,26 +49,8 @@
         },
         "name": {
           "type": "string"
-        },
-        "queueName": {
-          "type": "string"
-        },
-        "tenants": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "capabilities": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AssetManagementProviderDetailCapabilityInfo"
-          }
         }
       }
-    },
-    "AssetManagementUpdateProviderResponse": {
-      "type": "object"
     },
     "protobufAny": {
       "type": "object",

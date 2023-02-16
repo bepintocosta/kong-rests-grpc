@@ -9,7 +9,12 @@ http:
       post : /{tenantCode}/asset
       body : "*"
     - selector: AssetManagement.Provider.CreateProvider
-      post : /provider
+      post : /{tenantCode}/provider
       body: "*"
     - selector: AssetManagement.Provider.ListProviders
-      get : /provider
+      get : /{tenantCode}/provider
+    - selector: AssetManagement.Capability.CreateCapability
+      post : /{tenantCode}/capability
+      body: "*"
+    - selector: AssetManagement.Capability.ListCapabilities
+      get : /{tenantCode}/capability

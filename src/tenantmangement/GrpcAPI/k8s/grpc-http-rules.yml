@@ -1,0 +1,63 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: tenant-management-grpc-api-proxy
+  namespace: kong-admin
+  annotations:
+    "konghq.com/override": "mission-health-checking"
+spec:
+  type: ExternalName
+  externalName: tenant-management-grpc-api-service.netponto.svc
+  ports:
+     - port: 8090
+       targetPort: 8090
+       protocol: TCP 
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+    name: mission-health-checking
+    namespace: kong-admin
+upstream:
+  healthchecks:
+    passive:
+      healthy:
+        successes: 3
+        http_statuses: [ 200, 201, 203, 204, 400, 401, 404 ]
+      unhealthy:
+        http_failures: 3
+        http_statuses: [ 500, 502, 503 ]
+        tcp_failures: 1
+        timeouts: 1
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tenant-post
+  namespace: kong-admin
+  annotations:
+    kubernetes.io/ingress.class: kong-public
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /([A-Z, a-z, 0-9]{1,4})/asset
+        pathType: Prefix
+        backend:
+          service:
+             name: tenant-management-grpc-api-proxy
+             port:
+               number: 8090
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: tenant-post
+  namespace: kong-bo
+route:
+  methods:
+  - POST
+  - OPTIONS
+  regex_priority: 0
+---

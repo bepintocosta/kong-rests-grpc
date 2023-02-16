@@ -17,37 +17,6 @@
   ],
   "paths": {},
   "definitions": {
-    "AssetManagementAssetDetailResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "int64"
-        },
-        "tenantId": {
-          "type": "string",
-          "format": "int64"
-        },
-        "serialNumber": {
-          "type": "string"
-        },
-        "payload": {
-          "type": "string"
-        },
-        "createdBy": {
-          "type": "string"
-        },
-        "created": {
-          "type": "string"
-        },
-        "lastModifiedBy": {
-          "type": "string"
-        },
-        "lastModified": {
-          "type": "string"
-        }
-      }
-    },
     "AssetManagementAssetResponse": {
       "type": "object",
       "properties": {
@@ -82,9 +51,6 @@
           "format": "int32"
         }
       }
-    },
-    "AssetManagementUpdateAssetResponse": {
-      "type": "object"
     },
     "protobufAny": {
       "type": "object",

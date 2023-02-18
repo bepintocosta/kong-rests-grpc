@@ -12,5 +12,4 @@ sed -e "s^{{KONG_CONTEXT}}^public^g" RoleBinding.yaml  > public/RoleBinding.yaml
 sed -e "s^{{KONG_CONTEXT}}^public^g" Secret.yaml  > public/Secret.yaml
 sed -e "s^{{KONG_CONTEXT}}^public^g" ServiceAccount.yaml  > public/ServiceAccount.yaml
 sed -e "s^{{KONG_CONTEXT}}^public^g" Services.yaml  > public/Services.yaml
-
-
+sed -e "s^{{KONG_CONTEXT}}^public^g" KongClusterplugin-jwt-keycloak.yaml  > public/KongClusterplugin-jwt-keycloak.yaml

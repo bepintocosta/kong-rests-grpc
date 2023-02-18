@@ -37,7 +37,7 @@ metadata:
   name: tenant-post
   namespace: kong-admin
   annotations:
-    kubernetes.io/ingress.class: kong-public
+    kubernetes.io/ingress.class: kong-admin
 spec:
   rules:
   - http:
@@ -54,7 +54,7 @@ apiVersion: configuration.konghq.com/v1
 kind: KongIngress
 metadata:
   name: tenant-post
-  namespace: kong-bo
+  namespace: kong-admin
 route:
   methods:
   - POST

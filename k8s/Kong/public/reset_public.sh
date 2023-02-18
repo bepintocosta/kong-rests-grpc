@@ -10,5 +10,6 @@ kubectl delete -f RoleBinding.yaml
 kubectl delete -f Deployment.yaml
 kubectl delete -f Services.yaml
 kubectl delete -f Job.yaml
+kubectl delete -f KongClusterplugin-jwt-keycloak.yaml
 
 

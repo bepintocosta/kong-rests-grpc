@@ -8,7 +8,7 @@ public class CapabilityService : Protos.Capability.CapabilityBase
     public async override Task<CreateCapabilityResponse> CreateCapability(CreateCapabilityRequest request, Grpc.Core.ServerCallContext context)
     {
         await HttpUtils.AddHttpHeader(context, "201");
-        return new CreateCapabilityResponse() { Url = String.Format("{tenantcode}/capability/01", request.TenantCode)};
+        return new CreateCapabilityResponse() { Url = String.Format("{0}/capability/01", request.TenantCode)};
     }
 
     public async override Task<ListCapabilitiesResponse> ListCapabilities(ListCapabilitiesRequest request, Grpc.Core.ServerCallContext context)

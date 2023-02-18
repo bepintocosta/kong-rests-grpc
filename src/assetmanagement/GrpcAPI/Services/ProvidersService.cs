@@ -9,7 +9,7 @@ public class ProviderService : Protos.Provider.ProviderBase
     public async override Task<CreateProviderResponse> CreateProvider(CreateProviderRequest request, Grpc.Core.ServerCallContext context)
     {
         await HttpUtils.AddHttpHeader(context, "201");
-        return new CreateProviderResponse() { Url = String.Format("{tenantcode}/provider/01", request.TenantCode)};
+        return new CreateProviderResponse() { Url = String.Format("{0}/provider/01", request.TenantCode)};
     }
 
     public async override Task<ListProvidersResponse> ListProviders(ListProvidersRequest request, Grpc.Core.ServerCallContext context)

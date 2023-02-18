@@ -41,6 +41,10 @@ First of all, install go and protoc in your machine
 GO : https://go.dev/doc/install
 Protoc: https://grpc.io/docs/protoc-installation/
 
+export GOPATH=/home/bcosta/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOPATH:$GOBIN
+
 After that create this folder GrpcProxy/tools and create a file tool.go and put this code:
 
 
@@ -80,6 +84,7 @@ The first command will execute the protoc command and create the stubs, the othe
 
 Note: In make file change the variable GRPC_HOST to our grpc server url.
 
+http://kong-admin-api.kong-admin.svc:8001/
 
 
 

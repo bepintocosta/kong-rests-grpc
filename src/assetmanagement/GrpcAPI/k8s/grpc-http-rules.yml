@@ -53,7 +53,7 @@ spec:
 apiVersion: configuration.konghq.com/v1
 kind: KongIngress
 metadata:
-  name: assent-get
+  name: asset-get
   namespace: kong-public
 route:
   methods:

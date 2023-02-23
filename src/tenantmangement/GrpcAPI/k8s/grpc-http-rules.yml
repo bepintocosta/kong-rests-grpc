@@ -5,7 +5,7 @@ metadata:
   name: tenant-management-grpc-api-proxy
   namespace: kong-admin
   annotations:
-    "konghq.com/override": "mission-health-checking"
+    "konghq.com/override": "health-checking"
 spec:
   type: ExternalName
   externalName: tenant-management-grpc-api-service.netponto.svc
@@ -17,7 +17,7 @@ spec:
 apiVersion: configuration.konghq.com/v1
 kind: KongIngress
 metadata:
-    name: mission-health-checking
+    name: health-checking
     namespace: kong-admin
 upstream:
   healthchecks:
@@ -42,7 +42,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /([A-Z, a-z, 0-9]{1,4})/asset
+      - path: /([A-Z, a-z, 0-9]{1,4})/tenant
         pathType: Prefix
         backend:
           service:
